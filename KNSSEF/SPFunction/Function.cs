@@ -73,8 +73,6 @@ namespace KNSSEF.SPFunction
 
             finally
             {
-                //dbConString.Close();
-                //dbConString.Dispose();
                 sCommand.Dispose();
                 sAdapter.Dispose();
                 sDataSet = null;

@@ -11,27 +11,50 @@ namespace KNSSEF.DAL
 {
     public class GroupRepository : IGroupRepository
     {
+
+        #region Declare Variable
+
+        private string spName = "spGroup";
+        private Dictionary<string, string> spParams;
+
+        #endregion
+
         #region IDAL Repository
 
         public void Add(Group entity)
         {
-            string spName = "spGroup";
-            Dictionary<string, string> spParams = new Dictionary<string, string>();
+            using (var context = new KNSSContext<Group>())
+            {
+                Group data = context.DBEntities.Where(x => x.GroupId == entity.GroupId).FirstOrDefault();
 
-            spParams.Add("option", "1");
-            spParams.Add("groupId", entity.GroupId);
-            spParams.Add("groupName", entity.GroupName);
-            spParams.Add("createDate", entity.CreateDate.ToString());
-            spParams.Add("createBy", entity.CreateBy);
-            spParams.Add("editDate", entity.EditDate.ToString());
-            spParams.Add("editBy", entity.EditBy);
+                if (data != null)
+                {
+                    throw new Exception("Data Already Exist");
+                }
+                else
+                {
 
-            Func.ExecDataBySp(spName, spParams);
+                    spParams.Clear();
+                    spParams.Add("option", "1");
+                    spParams.Add("groupId", entity.GroupId);
+                    spParams.Add("groupName", entity.GroupName);
+                    spParams.Add("createDate", entity.CreateDate.ToString());
+                    spParams.Add("createBy", entity.CreateBy);
+                    spParams.Add("editDate", entity.EditDate.ToString());
+                    spParams.Add("editBy", entity.EditBy);
+
+                    Func.ExecDataBySp(spName, spParams);
+                }
+            }
         }
 
         public void Delete(Group entity)
         {
-            throw new NotImplementedException();
+            spParams.Clear();
+            spParams.Add("option", "3");
+            spParams.Add("groupId", entity.GroupId);
+
+            Func.ExecDataBySp(spName, spParams);
         }
 
         public List<Group> GetAll()
@@ -41,7 +64,7 @@ namespace KNSSEF.DAL
                 return context.Set<Group>().ToList();
             }
         }
-        
+
         public void Update(Group entity)
         {
             using (var context = new KNSSContext<Group>())
