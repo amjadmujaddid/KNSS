@@ -40,6 +40,11 @@ namespace UnitTestKNSS.Master
             GroupId = "0001"
         };
 
+        Group _groupDeleteData = new Group()
+        {
+            GroupId = "0001"
+        };
+
         #endregion
 
         #region Test Method
@@ -80,6 +85,29 @@ namespace UnitTestKNSS.Master
             GetAllDataGroupResponse response = _groupService.GetAllDataGroup();
 
             Assert.IsTrue(response.Messages.Count == 0, "Failed get all data");
+        }
+
+        [TestMethod]
+        public void DeleteDataGroup()
+        {
+            GetDataGroupByIdRequest getRequest = new GetDataGroupByIdRequest();
+            getRequest.groupId = _groupGetDataById.GroupId;
+
+            GetDataGroupByIdResponse getResponse = _groupService.GetDataGroupById(getRequest);
+
+            if (getResponse.Messages.Count != 0)
+            {
+                throw new Exception("Delete failed!");
+            }
+            else
+            {
+                DeleteDataGroupRequest request = new DeleteDataGroupRequest();
+
+                request.Group = getResponse.Group;
+                DeleteDataGroupResponse response = _groupService.DeleteDataGroup(request);
+            }
+           
+           
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿using KNSSEF.DAL.Interface;
 using KNSSEF.Model;
-using KNSSEF.SPFunction;
+using KNSSUtility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +14,9 @@ namespace KNSSEF.DAL
 
         #region Declare Variable
 
-        private string spName = "spGroup";
-        private Dictionary<string, string> spParams;
+        private string spName;
+        private string spType = string.Empty;
+        private Dictionary<string, string> spParams = new Dictionary<string, string>();
 
         #endregion
 
@@ -33,9 +34,9 @@ namespace KNSSEF.DAL
                 }
                 else
                 {
-
+                    spName = "uspg_GroupInsert";
+                    spType = "add";
                     spParams.Clear();
-                    spParams.Add("option", "1");
                     spParams.Add("groupId", entity.GroupId);
                     spParams.Add("groupName", entity.GroupName);
                     spParams.Add("createDate", entity.CreateDate.ToString());
@@ -43,18 +44,31 @@ namespace KNSSEF.DAL
                     spParams.Add("editDate", entity.EditDate.ToString());
                     spParams.Add("editBy", entity.EditBy);
 
-                    Func.ExecDataBySp(spName, spParams);
+                    Library.ExecSP(spName, spType, spParams);
                 }
             }
         }
 
         public void Delete(Group entity)
         {
-            spParams.Clear();
-            spParams.Add("option", "3");
-            spParams.Add("groupId", entity.GroupId);
+            using (var context = new KNSSContext<Group>())
+            {
+                Group data = context.DBEntities.Where(x => x.GroupId == entity.GroupId).FirstOrDefault();
 
-            Func.ExecDataBySp(spName, spParams);
+                if (data == null)
+                {
+                    throw new Exception("Data Not Exist");
+                }
+                else
+                {
+                    spName = "uspg_GroupDelete";
+                    spType = "delete";
+                    spParams.Clear();
+                    spParams.Add("groupId", entity.GroupId);
+
+                    Library.ExecSP(spName, spType, spParams);
+                }
+            }
         }
 
         public List<Group> GetAll()
@@ -73,15 +87,19 @@ namespace KNSSEF.DAL
 
                 if (data == null)
                 {
-                    //TBD for error exception data not exist
                     throw new Exception("Data Not Exist");
                 }
                 else
                 {
-                    data.GroupName = entity.GroupName;
-                    data.EditBy = entity.EditBy;
-                    data.EditDate = DateTime.Now;
-                    context.SaveChanges();
+                    spName = "uspg_GroupUpdate";
+                    spType = "edit";
+                    spParams.Clear();
+                    spParams.Add("groupId", entity.GroupId);
+                    spParams.Add("groupName", entity.GroupName);
+                    spParams.Add("editDate", entity.EditDate.ToString());
+                    spParams.Add("editBy", entity.EditBy);
+
+                    Library.ExecSP(spName, spType, spParams);
                 }
             }
         }

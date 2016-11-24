@@ -101,6 +101,24 @@ namespace KNSSService
             return response;
         }
 
+        public DeleteDataGroupResponse DeleteDataGroup(DeleteDataGroupRequest request)
+        {
+            DeleteDataGroupResponse response = new DeleteDataGroupResponse();
+            try
+            {
+                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
+                {
+                    _groupRepo.Delete(request.Group);
+                    transScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+            return response;
+        }
+
         #endregion
     }
 }
