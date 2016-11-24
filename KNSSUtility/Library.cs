@@ -33,7 +33,9 @@ namespace KNSSUtility
 
         #region Store Procedure Function
 
-        public static DataSet ExecGetDataBySP(string SpName, Dictionary<string, string> spParams, SqlConnection dbConString = null)
+        #region SP Get Multi Data Function Repository
+
+        public static DataSet ExecGetMultiDataBySP(string SpName, Dictionary<string, string> spParams, SqlConnection dbConString = null)
         {
             if (dbConString == null)
             {
@@ -76,6 +78,8 @@ namespace KNSSUtility
 
             finally
             {
+                dbConString.Close();
+                dbConString.Dispose();
                 sCommand.Dispose();
                 sAdapter.Dispose();
                 sDataSet = null;
@@ -86,9 +90,14 @@ namespace KNSSUtility
 
         }
 
+
+        #endregion
+
+        #region SP IDAL Function Repository
+
         public static bool ExecSP(string SpName, string spType, Dictionary<string, string> spParams, SqlConnection dbConString = null)
         {
-            bool res =true;
+            bool res = true;
 
             if (dbConString == null)
             {
@@ -145,11 +154,17 @@ namespace KNSSUtility
 
             finally
             {
+                dbConString.Close();
+                dbConString.Dispose();
+                sCommand.Dispose();
+                sAdapter.Dispose();
                 sCommand.Dispose();
             }
 
             return res;
         }
+
+        #endregion
 
         #endregion
     }

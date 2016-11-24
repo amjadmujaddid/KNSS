@@ -70,11 +70,7 @@ namespace KNSSService
             InsertDataGroupResponse response = new InsertDataGroupResponse();
             try
             {
-                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
-                {
-                    _groupRepo.Add(request.Group);
-                    transScope.Complete();
-                }
+                _groupRepo.Add(request.Group);
             }
             catch (Exception ex)
             {
@@ -88,11 +84,7 @@ namespace KNSSService
             UpdateDataGroupResponse response = new UpdateDataGroupResponse();
             try
             {
-                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
-                {
-                    _groupRepo.Update(request.Group);
-                    transScope.Complete();
-                }
+                _groupRepo.Update(request.Group);
             }
             catch (Exception ex)
             {
@@ -106,11 +98,7 @@ namespace KNSSService
             DeleteDataGroupResponse response = new DeleteDataGroupResponse();
             try
             {
-                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
-                {
-                    _groupRepo.Delete(request.Group);
-                    transScope.Complete();
-                }
+                _groupRepo.Delete(request.Group);
             }
             catch (Exception ex)
             {
