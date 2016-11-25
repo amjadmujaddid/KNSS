@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KNSSEF.Model
 {
-    public class Menu
+    public class Menu : DTOBase
     {
         public string MenuId { get; set; }
         public string MenuName { get; set; }
@@ -17,9 +17,5 @@ namespace KNSSEF.Model
         public string SiteMap { get; set; }
         public string TypeMenu { get; set; }
         public string IsPublic { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public string CreateBy { get; set; }
-        public Nullable<System.DateTime> EditDate { get; set; }
-        public string EditBy { get; set; }
     }
 }

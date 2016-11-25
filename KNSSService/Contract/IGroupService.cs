@@ -39,6 +39,13 @@ namespace KNSSService.Contract
         /// <returns></returns>
         UpdateDataGroupResponse UpdateDataGroup(UpdateDataGroupRequest request);
 
+        /// <summary>
+        /// Delete Data Group
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteDataGroupResponse DeleteDataGroup(DeleteDataGroupRequest request);
+
     }
 
     #endregion
@@ -88,6 +95,16 @@ namespace KNSSService.Contract
     public class UpdateDataGroupResponse : ResponseBase
     {
         public Group Group { get; set; }
+    }
+    
+    public class DeleteDataGroupRequest
+    {
+        public Group Group { get; set; }
+    }
+
+    public class DeleteDataGroupResponse : ResponseBase
+    {
+       
     }
 
     #endregion

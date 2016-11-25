@@ -40,7 +40,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
 
             return response;
@@ -59,7 +59,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
 
             return response;
@@ -70,15 +70,11 @@ namespace KNSSService
             InsertDataGroupResponse response = new InsertDataGroupResponse();
             try
             {
-                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
-                {
-                    _groupRepo.Add(request.Group);
-                    transScope.Complete();
-                }
+                _groupRepo.Add(request.Group);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
             return response;
         }
@@ -88,15 +84,25 @@ namespace KNSSService
             UpdateDataGroupResponse response = new UpdateDataGroupResponse();
             try
             {
-                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
-                {
-                    _groupRepo.Update(request.Group);
-                    transScope.Complete();
-                }
+                _groupRepo.Update(request.Group);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
+            }
+            return response;
+        }
+
+        public DeleteDataGroupResponse DeleteDataGroup(DeleteDataGroupRequest request)
+        {
+            DeleteDataGroupResponse response = new DeleteDataGroupResponse();
+            try
+            {
+                _groupRepo.Delete(request.Group);
+            }
+            catch (Exception ex)
+            {
+                response.Messages.Add(ex.ToString());
             }
             return response;
         }
