@@ -62,6 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Master\GroupUT.cs" />
+    <Compile Include="Master\MenuUT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

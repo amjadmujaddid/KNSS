@@ -106,8 +106,6 @@ namespace UnitTestKNSS.Master
                 request.Group = getResponse.Group;
                 DeleteDataGroupResponse response = _groupService.DeleteDataGroup(request);
             }
-           
-           
         }
         #endregion
     }
