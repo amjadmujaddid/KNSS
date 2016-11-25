@@ -40,7 +40,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
 
             return response;
@@ -59,7 +59,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
 
             return response;
@@ -74,7 +74,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
             return response;
         }
@@ -88,7 +88,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
             return response;
         }
@@ -102,7 +102,7 @@ namespace KNSSService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                response.Messages.Add(ex.ToString());
             }
             return response;
         }
