@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="99b45570770b42c28cb3814b892c9d43" Name="Diagram1">
         <EntityTypeShape EntityType="KNSSModel.Group" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KNSSModel.Menu" Width="1.5" PointX="2.875" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
