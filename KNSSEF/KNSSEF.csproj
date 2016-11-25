@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KNSSModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\DTOBase.cs" />
     <Compile Include="Model\Group.cs" />
     <Compile Include="Model\GroupMenu.cs" />
     <Compile Include="Model\Menu.cs" />
