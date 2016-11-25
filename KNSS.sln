@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNSSService", "KNSSService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestKNSS", "UnitTestKNSS\UnitTestKNSS.csproj", "{EEF0833A-6486-44B1-BE71-175029A6C59D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppMockup", "..\01\AppMockup\AppMockup.csproj", "{57C7F6C8-AFF8-40F1-AA39-A31198968F8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppMockup", "AppMockup\AppMockup.csproj", "{57C7F6C8-AFF8-40F1-AA39-A31198968F8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
