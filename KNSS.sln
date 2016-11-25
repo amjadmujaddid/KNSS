@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestKNSS", "UnitTestKNS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppMockup", "AppMockup\AppMockup.csproj", "{57C7F6C8-AFF8-40F1-AA39-A31198968F8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNSSUtility", "KNSSUtility\KNSSUtility.csproj", "{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{57C7F6C8-AFF8-40F1-AA39-A31198968F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C7F6C8-AFF8-40F1-AA39-A31198968F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57C7F6C8-AFF8-40F1-AA39-A31198968F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
