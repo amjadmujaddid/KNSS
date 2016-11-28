@@ -4,6 +4,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        //promptEmployee | filter form
+        $("#btnSearch").click(function () {
+            loadPrompt({
+                type: "promptResearch",
+                url: "/Home/GetAllData",
+                tagId: 'ProductName',
+                //tagName: obj + 'txtEmpName',
+                userdata: {
+                    fieldId: 'GroupId',
+                    fieldName: 'GroupName',
+                }
+            });
+        });
+    });
+</script>
+
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
