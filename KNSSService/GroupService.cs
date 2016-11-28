@@ -107,6 +107,21 @@ namespace KNSSService
             return response;
         }
 
+        public GetDataGroupByFilterResponse GetDataGroupByFilter(GetDataGroupByFilterRequest request)
+        {
+            GetDataGroupByFilterResponse response = new GetDataGroupByFilterResponse();
+            try
+            {
+                List<Group> _listGroup = _groupRepo.GetDataByFilter(request.groupId, request.groupName);
+                response.GroupList.AddRange(_listGroup);
+            }
+            catch (Exception ex)
+            {
+                response.Messages.Add(ex.ToString());
+            }
+            return response;
+        }
+
         #endregion
     }
 }
