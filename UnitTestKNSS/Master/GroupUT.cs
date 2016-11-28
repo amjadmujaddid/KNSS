@@ -45,6 +45,12 @@ namespace UnitTestKNSS.Master
             GroupId = "0001"
         };
 
+        Group _groupGetDataByFilter = new Group()
+        {
+            GroupId = "0001",
+            GroupName = "Dev"
+        };
+
         #endregion
 
         #region Test Method
@@ -106,6 +112,19 @@ namespace UnitTestKNSS.Master
                 request.Group = getResponse.Group;
                 DeleteDataGroupResponse response = _groupService.DeleteDataGroup(request);
             }
+        }
+
+        [TestMethod]
+        public void GetDataGroupByFilterTest()
+        {
+            GetDataGroupByFilterRequest request = new GetDataGroupByFilterRequest();
+            request.groupId = _groupGetDataByFilter.GroupId;
+            request.groupName = _groupGetDataByFilter.GroupName;
+
+            GetDataGroupByFilterResponse response = _groupService.GetDataGroupByFilter(request);
+
+            Assert.IsTrue(response.Messages.Count == 0, "Failed get data by Filter");
+
         }
         #endregion
     }
