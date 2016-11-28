@@ -15,5 +15,13 @@ namespace KNSSEF.DAL.Interface
         /// <param name="groupId"></param>
         /// <returns></returns>
         Group GetDataById(string groupId);
+
+        /// <summary>
+        /// Get List Data Group By Filter
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        List<Group> GetDataByFilter(string groupId, string groupName);
     }
 }
