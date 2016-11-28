@@ -84,6 +84,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -160,8 +162,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\ionicons.min.css" />
-    <Content Include="Content\jqGrid-master\ui.jqgrid.css" />
-    <Content Include="Content\jqGrid-master\ui.jqgrid.min.css" />
     <Content Include="Content\image\image1.jpg" />
     <Content Include="Content\image\image2.jpg" />
     <Content Include="Content\ui.jqgrid-bootstrap-ui.css" />
@@ -169,6 +169,16 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\Northwind.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Northwind.edmx</DependentUpon>
+      <LastGenOutput>Northwind.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Northwind.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Northwind.edmx</DependentUpon>
+      <LastGenOutput>Northwind.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\app\app.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -195,7 +205,15 @@
     <Content Include="fonts\Roboto-Light.ttf" />
     <Content Include="fonts\Roboto-Italic.ttf" />
     <Content Include="fonts\Roboto-BoldItalic.ttf" />
+    <EntityDeploy Include="Models\Northwind.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Northwind.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Northwind.edmx.diagram">
+      <DependentUpon>Northwind.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\app\grid - Copy.js" />
     <Content Include="Scripts\app\grid.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -207,7 +225,10 @@
     <Content Include="Scripts\function\basicSalaryPromotionIncrement.js" />
     <Content Include="Scripts\function\ConfirmationAndCorrectionDetail.js" />
     <Content Include="Scripts\function\ConfirmationUpdate.js" />
+    <Content Include="Scripts\function\global\global - Copy.js" />
     <Content Include="Scripts\function\global\global.js" />
+    <Content Include="Scripts\function\home - Copy.js" />
+    <Content Include="Scripts\function\home.js" />
     <Content Include="Scripts\function\promotionincrementbasicsalary.js" />
     <Content Include="Scripts\grid.locale-en.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -230,6 +251,30 @@
     <Compile Include="Controllers\PromotionIncrementBasicSalaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>Northwind.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Northwind.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Northwind.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Northwind.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Northwind.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Northwind.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Northwind.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Northwind.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -255,7 +300,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\KNSSEF\KNSSEF.csproj">
+      <Project>{5913ba85-76a1-4ad9-9a80-4523dcf01456}</Project>
+      <Name>KNSSEF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KNSSService\KNSSService.csproj">
+      <Project>{e8eea16c-e510-4b22-9a33-34ba2c4bc00d}</Project>
+      <Name>KNSSService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
