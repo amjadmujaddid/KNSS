@@ -118,9 +118,10 @@ namespace UnitTestKNSS.Master
         public void GetDataGroupByFilterTest()
         {
             GetDataGroupByFilterRequest request = new GetDataGroupByFilterRequest();
+            //request.groupId = _groupGetDataByFilter.GroupId;
+            //request.groupName = _groupGetDataByFilter.GroupName;
             request.groupId = _groupGetDataByFilter.GroupId;
             request.groupName = _groupGetDataByFilter.GroupName;
-
             GetDataGroupByFilterResponse response = _groupService.GetDataGroupByFilter(request);
 
             Assert.IsTrue(response.Messages.Count == 0, "Failed get data by Filter");

@@ -9,31 +9,32 @@ namespace AppMockup2
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/dist/jquery/jquery-*"));
+                        "~/Scripts/assets/plugins/jQuery/jquery-2.2.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/dist/bootstrap/bootstrap.min.js"
+                      "~/Scripts/assets/bootstrap/js/bootstrap.min.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                      "~/Scripts/dist/app/app.min.js"
+                      "~/Scripts/AdminLTE/app.min.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
-                      "~/Scripts/dist/datepicker/bootstrap-datepicker.js"
+                      "~/Scripts/assets/plugins/datepicker/bootstrap-datepicker.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/input-mask").Include(
-                      "~/Scripts/dist/input-mask/jquery.inputmask.*"
+                      "~/Scripts/assets/plugins/input-mask/jquery.inputmask.*"
                       ));
 
             //CSS
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/dist/bootstrap/bootstrap.min.css",
-                      "~/Content/dist/adminLTE/AdminLTE.css",
-                      "~/Content/dist/adminLTE/AdminLTE_fonts.css",
-                      "~/Content/dist/bootstrap/font-awesome.min.css",
-                      "~/Content/dist/datepicker/datepicker3.css"
+                      "~/Scripts/assets/bootstrap/css/bootstrap.min.css",
+                      "~/Content/AdminLTE/AdminLTE.css",
+                      //"~/Scripts/assets/dist/css/AdminLTE_fonts.css",
+                      "~/Content/AdminLTE/skins/_all-skins.min.css",
+                      //"~/Scripts/assets/font-awesome/css/font-awesome.min.css",
+                      "~/Scripts/assets/plugins/datepicker/datepicker3.css"
                       ));
             
         }

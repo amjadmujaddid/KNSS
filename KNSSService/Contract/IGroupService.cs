@@ -88,6 +88,7 @@ namespace KNSSService.Contract
     {
         public string groupId { get; set; }
         public string groupName { get; set; }
+
     }
 
     public class GetDataGroupByFilterResponse : ResponseBase

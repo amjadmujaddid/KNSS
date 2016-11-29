@@ -120,7 +120,7 @@ namespace KNSSEF.DAL
         {
             using (KNSSContext<Group> context = new KNSSContext<Group>()) 
             {
-                return context.DBEntities.Where(i => i.GroupId.Contains(groupId) && i.GroupName.Contains(groupName)).ToList();
+                return context.DBEntities.Where(i => i.GroupId.Contains(groupId) || i.GroupName.Contains(groupName)).ToList();
             }
         }
 

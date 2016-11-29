@@ -2,9 +2,13 @@
     hiddenError();
     //var url = $("#hdnUrlGrid").val() + "?serviceMode=" + objData.serviceMode + "&type=" + objData.type;
     var url = objData.url;
-    //if (objData.param != undefined) {
-    //    url += "&" + objData.param;
-    //}
+    if (objData.param != undefined) {
+        url += objData.param;
+        //url += objData.url + objData.param;
+
+        /// this
+
+    }
     $('#' + objData.grid).jqGrid('setGridParam', { 'datatype': 'json', 'url': url }).trigger('reloadGrid');
 }
 
@@ -66,12 +70,12 @@ function loadGrid(objData) {
     if (objData.datatype != "local") {
         //url = $("#hdnUrlGrid").val() + "?serviceMode=" + objData.serviceMode;
         url = objData.url;
-        //if (objData.type != undefined) {
-        //    url += "&type=" + objData.type;
-        //}
-        //if (objData.param != undefined) {
-        //    url += "&" + objData.param;
-        //}
+        if (objData.type != undefined) {
+            url += objData.type;
+        }
+        if (objData.param != undefined) {
+            url += objData.param;
+        }
     }
 
     $("#" + objData.grid).jqGrid({

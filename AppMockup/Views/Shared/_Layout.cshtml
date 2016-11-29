@@ -24,13 +24,39 @@
 
     <script src="~/Scripts/function/global/global.js"></script>
     <script src="~/Scripts/app/grid.js"></script>
+    <script src="~/Scripts/app/prompt.js"></script>
     <script src="~/Scripts/function/basicsalary.js"></script>
     <script src="~/Scripts/function/appraisalincrement.js"></script>
     <script src="~/Scripts/function/automaticCalculation.js"></script>
-    <script src="~/Scripts/function/ConfirmationUpdate.js"></script>
-    <script src="~/Scripts/function/ConfirmationAndCorrectionDetail.js"></script>
+    @*<script src="~/Scripts/function/ConfirmationUpdate.js"></script>
+    <script src="~/Scripts/function/ConfirmationAndCorrectionDetail.js"></script>*@
     <script src="~/Scripts/function/basicSalaryPromotionIncrement.js"></script>
     <script src="~/Scripts/function/home.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function validateGrid(grdId, grdName, lblId) {
+                hiddenError();
+                var sValid = "true";
+
+                if (lblId == undefined) {
+                    lblId = "lblStatus";
+                }
+
+                if ($('#' + grdId).jqGrid('getGridParam', 'selrow') == null) {
+                    //var html = "<%=Func.GetHeaderMessage("error")%>";
+                    var html = "No Data selected.";
+                    alert(html);
+                    //html += createError("<%=Lang.GetMessage[11]%>", grdName);
+                    //$("#" + lblId).html(html);
+                    sValid = "false";
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                }
+
+                return sValid;
+            }
+        });
+    </script>
 </head>
 <body class="skin-blue sidebar-mini">
     <div class="wrapper">
@@ -111,6 +137,34 @@
         <div class="content-wrapper">
             @RenderBody()
         </div>
+        @*ALL GLOBAL MODAL*@
+        <div class="modal" id="dlgPrompt">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" id="btnCancelPromptTop" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="divTitlePrompt"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="txtPromptHidden" />
+                        <input type="hidden" id="txtPromptId" />
+                        <input type="hidden" id="txtPromptName" />
+                        <div id="lblStatusPrompt"></div>
+                        <div class="box-body table-responsive no-padding">
+                            <div id="layoutGrdPrompt"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" id="btnCancelPrompt" class="btn btn-default btn-flat" data-dismiss="modal" value="Cancel" />
+                        <input type="button" id="btnInsertPrompt" class="btn btn-default btn-flat" value="Insert" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*END - ALL GLOBAL MODAL*@
+
         <footer class="main-footer">
             <small>&copy; DC 2016</small>
         </footer>
