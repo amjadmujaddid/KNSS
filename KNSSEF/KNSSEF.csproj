@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\ReportViewerRepository.cs" />
     <Compile Include="DAL\GroupRepository.cs" />
     <Compile Include="DAL\Interface\IDALRepository.cs" />
+    <Compile Include="DAL\Interface\IReportViewerRepository.cs" />
     <Compile Include="DAL\Interface\IGroupRepository.cs" />
     <Compile Include="KNSSContext.cs" />
     <Compile Include="KNSSModel.Designer.cs">
