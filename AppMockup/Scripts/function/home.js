@@ -1,7 +1,7 @@
 ﻿$(function () {
     loadGrid({
         grid: "grdProduct",
-        url: "/Home/GetAllData",
+        url: "/Home/GetAllData/",
         colNames: ["ID", "Group Name"],
         colModel: [
             {
@@ -22,10 +22,42 @@
         toolbar: [true, "top"],
         width: 1100,
         height: "auto",
-        search: true
+        search: true,
+        sortName: 'GroupId',
+        sortOrder: 'desc'
     });
     hideLoading();
+
+    $("#btnSearch").click(function () {
+
+        //if ($("#" + obj + "dtpMonth").val() != "") {
+        //    joinDate = setMonthYear($("#" + obj + "dtpMonth").val());
+        //}
+        //var text = $("#txtSearchGroup").val();
+        refreshGrid({
+            grid: "grdProduct",
+            url: "/Home/GetFilteredData/",
+            param: "text" + ($("#txtSearchGroup").$()),
+            //postData: {
+            //    text: $("#txtSearchGroup").val()
+        });
+
+        });
+    //$.ajax({
+    //    type: "POST",
+    //    url: "/Home/GetFilteredData",
+    //    data: JSON.stringify({ text: $("#txtSearchGroup").val() }),
+    //    dataType: "json",
+    //    contentType: "application/json; charset=utf-8",
+    //    success: function (data) {
+    //        alert(data);
+    //    },
+    //    error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    //});
 });
+
+
+
 $("#grdProduct_rn").html("No.");
 
 function AddAutomaticCalculation() {

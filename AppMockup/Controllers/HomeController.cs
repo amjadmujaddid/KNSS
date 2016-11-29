@@ -33,6 +33,23 @@ namespace AppMockup.Controllers
         }
 
 
+        [HttpPost]
+        [AcceptVerbs("POST")]
+        public JsonResult GetFilteredData(string text)
+        {
+            List<Group> listGroup = new List<Group>();
+            GetDataGroupByFilterRequest request = new GetDataGroupByFilterRequest();
+            request.groupId = text;
+            request.groupName = text;
+
+            GetDataGroupByFilterResponse response = _groupService.GetDataGroupByFilter(request);
+            listGroup.AddRange(response.GroupList);
+
+            return Json(listGroup.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+
         //public JsonResult GetAllData()
         //{
         //    var datalistResults = (from p in db.Products
