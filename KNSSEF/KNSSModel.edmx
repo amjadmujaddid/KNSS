@@ -5,6 +5,70 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KNSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FwFieldType">
+          <Key>
+            <PropertyRef Name="FieldTypeId" />
+          </Key>
+          <Property Name="FieldTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldTypeCode" Type="varchar" MaxLength="5" />
+          <Property Name="FieldTypeName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="EditBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FwReport">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportCode" Type="varchar" MaxLength="10" />
+          <Property Name="ReportName" Type="nvarchar" MaxLength="30" />
+          <Property Name="CategoryId" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="ReportFile" Type="nvarchar" MaxLength="250" />
+          <Property Name="UseSp" Type="bit" />
+          <Property Name="HasParameter" Type="bit" />
+          <Property Name="SqlQuery" Type="nvarchar" MaxLength="500" />
+          <Property Name="SqlWhere" Type="nvarchar" MaxLength="500" />
+          <Property Name="SqlOrder" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="date" />
+          <Property Name="EditBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FwReportCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="date" />
+          <Property Name="EditBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FwReportFilter">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="FieldName" />
+          </Key>
+          <Property Name="ReportId" Type="int" Nullable="false" />
+          <Property Name="FieldName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsParameter" Type="bit" />
+          <Property Name="IsShow" Type="bit" />
+          <Property Name="FieldTypeId" Type="int" />
+          <Property Name="TableSource" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="date" />
+          <Property Name="EditBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tmGroup">
           <Key>
             <PropertyRef Name="GroupId" />
@@ -34,9 +98,61 @@
           <Property Name="EditDate" Type="datetime" />
           <Property Name="EditBy" Type="varchar" MaxLength="10" />
         </EntityType>
+        <Association Name="FwFieldType_FwReportFilter">
+          <End Role="FwFieldType" Type="Self.FwFieldType" Multiplicity="0..1" />
+          <End Role="FwReportFilter" Type="Self.FwReportFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FwFieldType">
+              <PropertyRef Name="FieldTypeId" />
+            </Principal>
+            <Dependent Role="FwReportFilter">
+              <PropertyRef Name="FieldTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FwReport_FwReportFilter">
+          <End Role="FwReport" Type="Self.FwReport" Multiplicity="1" />
+          <End Role="FwReportFilter" Type="Self.FwReportFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FwReport">
+              <PropertyRef Name="ReportId" />
+            </Principal>
+            <Dependent Role="FwReportFilter">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FwReportCategory_FwReport">
+          <End Role="FwReportCategory" Type="Self.FwReportCategory" Multiplicity="1" />
+          <End Role="FwReport" Type="Self.FwReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FwReportCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="FwReport">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="KNSSModelStoreContainer">
+          <EntitySet Name="FwFieldType" EntityType="Self.FwFieldType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FwReport" EntityType="Self.FwReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FwReportCategory" EntityType="Self.FwReportCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FwReportFilter" EntityType="Self.FwReportFilter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tmGroup" EntityType="Self.tmGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tmMenu" EntityType="Self.tmMenu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FwFieldType_FwReportFilter" Association="Self.FwFieldType_FwReportFilter">
+            <End Role="FwFieldType" EntitySet="FwFieldType" />
+            <End Role="FwReportFilter" EntitySet="FwReportFilter" />
+          </AssociationSet>
+          <AssociationSet Name="FwReport_FwReportFilter" Association="Self.FwReport_FwReportFilter">
+            <End Role="FwReport" EntitySet="FwReport" />
+            <End Role="FwReportFilter" EntitySet="FwReportFilter" />
+          </AssociationSet>
+          <AssociationSet Name="FwReportCategory_FwReport" Association="Self.FwReportCategory_FwReport">
+            <End Role="FwReportCategory" EntitySet="FwReportCategory" />
+            <End Role="FwReport" EntitySet="FwReport" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -56,6 +172,22 @@
         <EntityContainer Name="KNSSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Groups" EntityType="KNSSModel.Group" />
           <EntitySet Name="Menus" EntityType="KNSSModel.Menu" />
+          <EntitySet Name="FieldTypes" EntityType="KNSSModel.FieldType" />
+          <EntitySet Name="Reports" EntityType="KNSSModel.Report" />
+          <EntitySet Name="ReportCategories" EntityType="KNSSModel.ReportCategory" />
+          <EntitySet Name="ReportFilters" EntityType="KNSSModel.ReportFilter" />
+          <AssociationSet Name="FwFieldType_FwReportFilter" Association="KNSSModel.FwFieldType_FwReportFilter">
+            <End Role="FwFieldType" EntitySet="FieldTypes" />
+            <End Role="FwReportFilter" EntitySet="ReportFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FwReport_FwReportFilter" Association="KNSSModel.FwReport_FwReportFilter">
+            <End Role="FwReport" EntitySet="Reports" />
+            <End Role="FwReportFilter" EntitySet="ReportFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FwReportCategory_FwReport" Association="KNSSModel.FwReportCategory_FwReport">
+            <End Role="FwReportCategory" EntitySet="ReportCategories" />
+            <End Role="FwReport" EntitySet="Reports" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Menu">
           <Key>
@@ -75,6 +207,112 @@
           <Property Name="EditDate" Type="DateTime" Precision="3" />
           <Property Name="EditBy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="FieldTypeId" />
+          </Key>
+          <Property Name="FieldTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldTypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FieldTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FwReportFilters" Relationship="KNSSModel.FwFieldType_FwReportFilter" FromRole="FwFieldType" ToRole="FwReportFilter" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ReportName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="ReportFile" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UseSp" Type="Boolean" />
+          <Property Name="HasParameter" Type="Boolean" />
+          <Property Name="SqlQuery" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SqlWhere" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SqlOrder" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="0" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FwReportFilters" Relationship="KNSSModel.FwReport_FwReportFilter" FromRole="FwReport" ToRole="FwReportFilter" />
+          <NavigationProperty Name="FwReportCategory" Relationship="KNSSModel.FwReportCategory_FwReport" FromRole="FwReport" ToRole="FwReportCategory" />
+        </EntityType>
+        <EntityType Name="ReportCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="0" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FwReports" Relationship="KNSSModel.FwReportCategory_FwReport" FromRole="FwReportCategory" ToRole="FwReport" />
+        </EntityType>
+        <EntityType Name="ReportFilter">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="FieldName" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" />
+          <Property Name="FieldName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Caption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsParameter" Type="Boolean" />
+          <Property Name="IsShow" Type="Boolean" />
+          <Property Name="FieldTypeId" Type="Int32" />
+          <Property Name="TableSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="0" />
+          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FwFieldType" Relationship="KNSSModel.FwFieldType_FwReportFilter" FromRole="FwReportFilter" ToRole="FwFieldType" />
+          <NavigationProperty Name="FwReport" Relationship="KNSSModel.FwReport_FwReportFilter" FromRole="FwReportFilter" ToRole="FwReport" />
+        </EntityType>
+        <Association Name="FwFieldType_FwReportFilter">
+          <End Type="KNSSModel.FieldType" Role="FwFieldType" Multiplicity="0..1" />
+          <End Type="KNSSModel.ReportFilter" Role="FwReportFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FwFieldType">
+              <PropertyRef Name="FieldTypeId" />
+            </Principal>
+            <Dependent Role="FwReportFilter">
+              <PropertyRef Name="FieldTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FwReport_FwReportFilter">
+          <End Type="KNSSModel.Report" Role="FwReport" Multiplicity="1" />
+          <End Type="KNSSModel.ReportFilter" Role="FwReportFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FwReport">
+              <PropertyRef Name="ReportId" />
+            </Principal>
+            <Dependent Role="FwReportFilter">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FwReportCategory_FwReport">
+          <End Type="KNSSModel.ReportCategory" Role="FwReportCategory" Multiplicity="1" />
+          <End Type="KNSSModel.Report" Role="FwReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FwReportCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="FwReport">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -112,7 +350,74 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="FieldTypes">
+            <EntityTypeMapping TypeName="KNSSModel.FieldType">
+              <MappingFragment StoreEntitySet="FwFieldType">
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="FieldTypeName" ColumnName="FieldTypeName" />
+                <ScalarProperty Name="FieldTypeCode" ColumnName="FieldTypeCode" />
+                <ScalarProperty Name="FieldTypeId" ColumnName="FieldTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="KNSSModel.Report">
+              <MappingFragment StoreEntitySet="FwReport">
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="SqlOrder" ColumnName="SqlOrder" />
+                <ScalarProperty Name="SqlWhere" ColumnName="SqlWhere" />
+                <ScalarProperty Name="SqlQuery" ColumnName="SqlQuery" />
+                <ScalarProperty Name="HasParameter" ColumnName="HasParameter" />
+                <ScalarProperty Name="UseSp" ColumnName="UseSp" />
+                <ScalarProperty Name="ReportFile" ColumnName="ReportFile" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="ReportCode" ColumnName="ReportCode" />
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportCategories">
+            <EntityTypeMapping TypeName="KNSSModel.ReportCategory">
+              <MappingFragment StoreEntitySet="FwReportCategory">
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportFilters">
+            <EntityTypeMapping TypeName="KNSSModel.ReportFilter">
+              <MappingFragment StoreEntitySet="FwReportFilter">
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="TableSource" ColumnName="TableSource" />
+                <ScalarProperty Name="FieldTypeId" ColumnName="FieldTypeId" />
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+                <ScalarProperty Name="IsParameter" ColumnName="IsParameter" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

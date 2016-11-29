@@ -86,11 +86,98 @@ namespace KNSSUtility
             }
 
             return dData;
-
-
         }
 
+        public static DataTable ExecGetMultiDataBySPtoDatatable(string SpName, Dictionary<string, string> spParams, SqlConnection dbConString = null)
+        {
+            if (dbConString == null)
+            {
+                dbConString = DbConString("0");
+            }
 
+            DataTable dData;
+            SqlDataAdapter sAdapter = new SqlDataAdapter();
+            SqlCommand sCommand = new SqlCommand();
+            DataTable sDataSet = new DataTable();
+
+            try
+            {
+                dbConString.Close();
+                dbConString.Open();
+
+                sCommand = new SqlCommand(SpName, dbConString);
+                foreach (var item in spParams)
+                {
+                    if (item.Value != "")
+                    {
+                        sCommand.Parameters.AddWithValue("@" + item.Key, item.Value);
+                    }
+                    else
+                    {
+                        sCommand.Parameters.AddWithValue("@" + item.Key, DBNull.Value);
+                    }
+                }
+
+                sCommand.CommandType = CommandType.StoredProcedure;
+                sAdapter.SelectCommand = sCommand;
+                sAdapter.Fill(sDataSet);
+                dData = sDataSet;
+            }
+
+            catch (Exception ex)
+            {
+                dData = null;
+            }
+
+            finally
+            {
+                dbConString.Close();
+                dbConString.Dispose();
+                sCommand.Dispose();
+                sAdapter.Dispose();
+                sDataSet = null;
+            }
+
+            return dData;
+        }
+        public static DataTable QueryToDataTable(string sql, SqlConnection dbConString = null)
+        {
+            if (dbConString == null)
+            {
+                dbConString = DbConString("0"); ;
+            }
+            DataTable data;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand();
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                dbConString.Close();
+                dbConString.Open();
+
+                command = new SqlCommand(sql, dbConString);
+                adapter.SelectCommand = command;
+                adapter.Fill(dataTable);
+                data = dataTable;
+            }
+
+            catch (Exception)
+            {
+                data = null;
+            }
+
+            finally
+            {
+                dbConString.Close();
+                dbConString.Dispose();
+                command.Dispose();
+                adapter.Dispose();
+                dataTable = null;
+            }
+
+            return data;
+        }
         #endregion
 
         #region SP IDAL Function Repository

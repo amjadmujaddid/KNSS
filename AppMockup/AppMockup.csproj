@@ -43,6 +43,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -84,8 +97,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -162,6 +173,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\jqGrid-master\ui.jqgrid.css" />
+    <Content Include="Content\jqGrid-master\ui.jqgrid.min.css" />
     <Content Include="Content\image\image1.jpg" />
     <Content Include="Content\image\image2.jpg" />
     <Content Include="Content\ui.jqgrid-bootstrap-ui.css" />
@@ -195,8 +208,18 @@
     <Content Include="fonts\Roboto-Light.ttf" />
     <Content Include="fonts\Roboto-Italic.ttf" />
     <Content Include="fonts\Roboto-BoldItalic.ttf" />
+    <Content Include="DatasetReport\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="DatasetReport\DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DatasetReport\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\app\grid - Copy.js" />
     <Content Include="Scripts\app\grid.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -208,10 +231,7 @@
     <Content Include="Scripts\function\basicSalaryPromotionIncrement.js" />
     <Content Include="Scripts\function\ConfirmationAndCorrectionDetail.js" />
     <Content Include="Scripts\function\ConfirmationUpdate.js" />
-    <Content Include="Scripts\function\global\global - Copy.js" />
     <Content Include="Scripts\function\global\global.js" />
-    <Content Include="Scripts\function\home - Copy.js" />
-    <Content Include="Scripts\function\home.js" />
     <Content Include="Scripts\function\promotionincrementbasicsalary.js" />
     <Content Include="Scripts\grid.locale-en.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -230,8 +250,14 @@
     <Compile Include="Controllers\AutomaticCalculationController.cs" />
     <Compile Include="Controllers\BasicSalaryController.cs" />
     <Compile Include="Controllers\ConfirmationAndCorrectionController.cs" />
+    <Compile Include="Controllers\ReportViewerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PromotionIncrementBasicSalaryController.cs" />
+    <Compile Include="DatasetReport\DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,6 +277,8 @@
     <Content Include="Views\AssesmentCorrection\Index.cshtml" />
     <Content Include="Views\PromotionIncrementBasicSalary\Index.cshtml" />
     <Content Include="Views\Shared\_LoginMaster.cshtml" />
+    <Content Include="Views\ReportViewer\Index.cshtml" />
+    <Content Include="Views\ReportFilter\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -259,20 +287,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KNSSEF\KNSSEF.csproj">
-      <Project>{5913ba85-76a1-4ad9-9a80-4523dcf01456}</Project>
-      <Name>KNSSEF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KNSSService\KNSSService.csproj">
-      <Project>{e8eea16c-e510-4b22-9a33-34ba2c4bc00d}</Project>
-      <Name>KNSSService</Name>
-    </ProjectReference>
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\KNSSEF\KNSSEF.csproj">
+      <Project>{5913BA85-76A1-4AD9-9A80-4523DCF01456}</Project>
+      <Name>KNSSEF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KNSSService\KNSSService.csproj">
+      <Project>{E8EEA16C-E510-4B22-9A33-34BA2C4BC00D}</Project>
+      <Name>KNSSService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KNSSUtility\KNSSUtility.csproj">
+      <Project>{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}</Project>
+      <Name>KNSSUtility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
