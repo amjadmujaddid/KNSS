@@ -1,13 +1,7 @@
 ﻿using KNSSEF.DAL;
 using KNSSEF.DAL.Interface;
-using KNSSEF.Model;
 using KNSSService.Contract;
-using KNSSService.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
 
 namespace KNSSService
@@ -30,15 +24,15 @@ namespace KNSSService
 
         #endregion
 
-        #region IGroupService Implementation
+        #region IReportService Implementation
 
-        public GetAllDataReportViewerResponse GetAllDataGroup()
+        public GetAllDataReportViewerResponse GetAllDataReport()
         {
-            GetAllDataReportViewerResponse response = new GetAllDataReportViewerResponse();
+            var response = new GetAllDataReportViewerResponse();
             try
             {
-                List<Group> _listGroup = _reportViewerRepo.GetAll();
-                response.ReportViewerList.AddRange(_listGroup);
+                var _listReport = _reportViewerRepo.GetAll();
+                response.ReportViewerList.AddRange(_listReport);
             }
             catch (Exception ex)
             {
@@ -53,9 +47,9 @@ namespace KNSSService
             throw new NotImplementedException();
         }
 
-        public GetDataReportViewerByIdResponse GetDataGroupById(GetDataReportViewerByIdRequest request)
+        public GetDataReportViewerByIdResponse GetDataReportViewerById(GetDataReportViewerByIdRequest request)
         {
-            GetDataReportViewerByIdResponse response = new GetDataReportViewerByIdResponse();
+            var response = new GetDataReportViewerByIdResponse();
             try
             {
                 using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
@@ -70,11 +64,6 @@ namespace KNSSService
             }
 
             return response;
-        }
-
-        public GetDataReportViewerByIdResponse GetDataReportViewerById(GetDataReportViewerByIdRequest request)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

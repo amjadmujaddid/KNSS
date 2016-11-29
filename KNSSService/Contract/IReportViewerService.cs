@@ -1,12 +1,7 @@
 ﻿using KNSSEF.Model;
-using KNSSService.Contract;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace KNSSService.Interface
+namespace KNSSService.Contract
 {
     #region Service Definition
 
@@ -39,11 +34,11 @@ namespace KNSSService.Interface
 
     public class GetAllDataReportViewerResponse : ResponseBase
     {
-        private List<Group> _ReportViewerList;
+        private List<Report> _ReportViewerList;
 
-        public List<Group> ReportViewerList
+        public List<Report> ReportViewerList
         {
-            get { return _ReportViewerList ?? (_ReportViewerList = new List<Group>()); }
+            get { return _ReportViewerList ?? (_ReportViewerList = new List<Report>()); }
         }
     }
 
@@ -54,7 +49,7 @@ namespace KNSSService.Interface
 
     public class GetDataReportViewerByIdResponse : ResponseBase
     {
-        public Group ReportViewer { get; set; }
+        public Report ReportViewer { get; set; }
     }
     #endregion
 }

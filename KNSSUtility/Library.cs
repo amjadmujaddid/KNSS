@@ -31,84 +31,6 @@ namespace KNSSUtility
 
         #endregion
 
-        public static string InsertString(string table, Dictionary<string, string> _data)
-        {
-            string sValCol = "";
-            string value = "";
-
-            foreach (var data in _data)
-            {
-                sValCol += data.Key + ",";
-                if (data.Value != null)
-                {
-                    value += "'" + IsInjection(data.Value) + "',";
-                }
-                else
-                {
-                    value += "NULL,";
-                }
-            }
-
-            string sql = "insert into " + table + " (" + sValCol + ") values (" + value + "')";
-            sql = sql.Replace(",')", ")");
-            sql = sql.Replace(",)", ")");
-
-            return sql;
-        }
-
-        public static string UpdateString(string table, Dictionary<string, string> _data, Dictionary<string, string> _where = null)
-        {
-            string value = "";
-            string where = "";
-
-            foreach (var data in _data)
-            {
-                if (data.Value != null)
-                {
-                    value += data.Key + "=" + "'" + IsInjection(data.Value) + "',";
-                }
-                else
-                {
-                    value += data.Key + "=NULL,";
-                }
-            }
-
-            if (_where != null)
-            {
-                foreach (var data in _where)
-                {
-                    where += " and " + data.Key + "=" + "'" + IsInjection(data.Value) + "'";
-                }
-            }
-
-            string sql = "update " + table + " set " + value + " where 1=1 " + where;
-            return sql.Replace("', w", "' w");
-        }
-
-        public static string DeleteString(string table, Dictionary<string, string> _where)
-        {
-            string sql = "delete from " + table + " where 1=1 ";
-
-            foreach (var data in _where)
-            {
-                sql += " and " + data.Key + "=" + "'" + IsInjection(data.Value) + "'";
-            }
-
-            return sql;
-        }
-
-        public static string IsInjection(string sData)
-        {
-            string ret = "";
-
-            if (sData != "" && sData != null)
-            {
-                ret = sData.ToString().Replace("'", "''");
-            }
-
-            return ret.Trim();
-        }
-
         #region Store Procedure Function
 
         #region SP Get Multi Data Function Repository
@@ -164,10 +86,98 @@ namespace KNSSUtility
             }
 
             return dData;
+        }
 
+        public static DataTable ExecGetMultiDataBySPtoDatatable(string SpName, Dictionary<string, string> spParams, SqlConnection dbConString = null)
+        {
+            if (dbConString == null)
+            {
+                dbConString = DbConString("0");
+            }
 
-        }        
+            DataTable dData;
+            SqlDataAdapter sAdapter = new SqlDataAdapter();
+            SqlCommand sCommand = new SqlCommand();
+            DataTable sDataSet = new DataTable();
 
+            try
+            {
+                dbConString.Close();
+                dbConString.Open();
+
+                sCommand = new SqlCommand(SpName, dbConString);
+                foreach (var item in spParams)
+                {
+                    if (item.Value != "")
+                    {
+                        sCommand.Parameters.AddWithValue("@" + item.Key, item.Value);
+                    }
+                    else
+                    {
+                        sCommand.Parameters.AddWithValue("@" + item.Key, DBNull.Value);
+                    }
+                }
+
+                sCommand.CommandType = CommandType.StoredProcedure;
+                sAdapter.SelectCommand = sCommand;
+                sAdapter.Fill(sDataSet);
+                dData = sDataSet;
+            }
+
+            catch (Exception ex)
+            {
+                dData = null;
+            }
+
+            finally
+            {
+                dbConString.Close();
+                dbConString.Dispose();
+                sCommand.Dispose();
+                sAdapter.Dispose();
+                sDataSet = null;
+            }
+
+            return dData;
+        }
+        public static DataTable QueryToDataTable(string sql, SqlConnection dbConString = null)
+        {
+            if (dbConString == null)
+            {
+                dbConString = DbConString("0"); ;
+            }
+            DataTable data;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand();
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                dbConString.Close();
+                dbConString.Open();
+
+                command = new SqlCommand(sql, dbConString);
+                adapter.SelectCommand = command;
+                adapter.Fill(dataTable);
+                data = dataTable;
+            }
+
+            catch (Exception)
+            {
+                data = null;
+            }
+
+            finally
+            {
+                dbConString.Close();
+                dbConString.Dispose();
+                command.Dispose();
+                adapter.Dispose();
+                dataTable = null;
+            }
+
+            return data;
+        }
         #endregion
 
         #region SP IDAL Function Repository

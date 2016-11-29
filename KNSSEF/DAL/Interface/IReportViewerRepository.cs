@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace KNSSEF.DAL.Interface
 {
-    public interface IReportViewerRepository : IDALRepository<Group>
+    public interface IReportViewerRepository : IDALRepository<Report>
     {
         /// <summary>
-        /// Get Data By Id Group
+        /// Get Data By Id Report
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="reportId"></param>
         /// <returns></returns>
-        Group GetDataById(string groupId);
+        Report GetDataById(string reportId);
     }
 }

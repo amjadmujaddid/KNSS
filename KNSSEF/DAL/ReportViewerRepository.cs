@@ -22,22 +22,22 @@ namespace KNSSEF.DAL
 
         #region IDAL Repository
 
-        public List<Group> GetAll()
+        public List<Report> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Add(Group entity)
+        public void Add(Report entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Group entity)
+        public void Update(Report entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Group entity)
+        public void Delete(Report entity)
         {
             throw new NotImplementedException();
 
@@ -47,11 +47,11 @@ namespace KNSSEF.DAL
 
         #region IReportViewerRepository Implementation
 
-        public Group GetDataById(string groupId)
+        public Report GetDataById(string reportId)
         {
-            using (KNSSContext<Group> context = new KNSSContext<Group>())
+            using (KNSSContext<Report> context = new KNSSContext<Report>())
             {
-                return context.DBEntities.Where(i => i.GroupId == groupId).FirstOrDefault();
+                return context.DBEntities.Where(i => i.ReportId == Convert.ToInt16(reportId)).FirstOrDefault();
             }
         }
         #endregion
