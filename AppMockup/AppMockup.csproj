@@ -208,6 +208,17 @@
     <Content Include="fonts\Roboto-Light.ttf" />
     <Content Include="fonts\Roboto-Italic.ttf" />
     <Content Include="fonts\Roboto-BoldItalic.ttf" />
+    <Content Include="DatasetReport\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="DatasetReport\DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DatasetReport\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\app\grid.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -242,6 +253,11 @@
     <Compile Include="Controllers\ReportViewerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PromotionIncrementBasicSalaryController.cs" />
+    <Compile Include="DatasetReport\DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -284,6 +300,10 @@
     <ProjectReference Include="..\KNSSService\KNSSService.csproj">
       <Project>{E8EEA16C-E510-4B22-9A33-34BA2C4BC00D}</Project>
       <Name>KNSSService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KNSSUtility\KNSSUtility.csproj">
+      <Project>{9AFB55B3-4982-4A9D-ABED-034FE6DFD38C}</Project>
+      <Name>KNSSUtility</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
