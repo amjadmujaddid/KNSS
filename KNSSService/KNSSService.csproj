@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReportViewerService.cs" />
-    <Compile Include="Interface\IReportViewerService.cs" />
+    <Compile Include="Contract\IReportViewerService.cs" />
     <Compile Include="Contract\IGroupService.cs" />
     <Compile Include="Contract\IMenuService.cs" />
     <Compile Include="Contract\ResponseBase.cs" />

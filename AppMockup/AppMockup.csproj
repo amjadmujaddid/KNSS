@@ -281,6 +281,10 @@
       <Project>{5913BA85-76A1-4AD9-9A80-4523DCF01456}</Project>
       <Name>KNSSEF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KNSSService\KNSSService.csproj">
+      <Project>{E8EEA16C-E510-4B22-9A33-34BA2C4BC00D}</Project>
+      <Name>KNSSService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
