@@ -64,9 +64,13 @@
       <DependentUpon>KNSSModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\DTOBase.cs" />
+    <Compile Include="Model\FieldType.cs" />
     <Compile Include="Model\Group.cs" />
     <Compile Include="Model\GroupMenu.cs" />
     <Compile Include="Model\Menu.cs" />
+    <Compile Include="Model\Report.cs" />
+    <Compile Include="Model\ReportCategory.cs" />
+    <Compile Include="Model\ReportFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
