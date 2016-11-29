@@ -154,9 +154,9 @@ function blockElement(elementId, msg, isWaiting) {
     });
 }
 
-function loadCombo() {
-    $("select").select2();
-}
+//function loadCombo() {
+//    $("select").select2();
+//}
 
 function loadTitle(title, id) {
     $(document).attr("title", title + $("#" + id).html());

@@ -1,8 +1,13 @@
 ﻿function refreshGrid(objData) {
     hiddenError();
-    var url = $("#hdnUrlGrid").val() + "?serviceMode=" + objData.serviceMode + "&type=" + objData.type;
+    //var url = $("#hdnUrlGrid").val() + "?serviceMode=" + objData.serviceMode + "&type=" + objData.type;
+    var url = objData.url;
     if (objData.param != undefined) {
-        url += "&" + objData.param;
+        url += objData.param;
+        //url += objData.url + objData.param;
+
+        /// this
+
     }
     $('#' + objData.grid).jqGrid('setGridParam', { 'datatype': 'json', 'url': url }).trigger('reloadGrid');
 }
@@ -63,40 +68,41 @@ function loadGrid(objData) {
     var url = "";
 
     if (objData.datatype != "local") {
-        url = $("#hdnUrlGrid").val() + "?serviceMode=" + objData.serviceMode;
+        //url = $("#hdnUrlGrid").val() + "?serviceMode=" + objData.serviceMode;
+        url = objData.url;
         if (objData.type != undefined) {
-            url += "&type=" + objData.type;
+            url += objData.type;
         }
         if (objData.param != undefined) {
-            url += "&" + objData.param;
+            url += objData.param;
         }
     }
 
     $("#" + objData.grid).jqGrid({
         url: url,
         mtype: "post",
-        width: (objData.width != undefined ? objData.width : 500),
+        width: (objData.width != undefined ? objData.width :1100),
         datatype: (objData.dataType == undefined ? "json" : objData.datatype),
         toolbar: objData.toolbar,
         colNames: objData.colNames,
         colModel: objData.colModel,
         rowNum: (objData.rowNum == undefined ? 10 : objData.rowNum),
-        rowList: (objData.rowList == undefined ? [10, 25, 50] : objData.rowList),
+        rowList: (objData.rowList == undefined ? [10, 25, 50, 100, 500, 1000, 10000,1000000] : objData.rowList),
         pager: (objData.pager == undefined ? '#' + objData.grid + "Pgr" : ""),
         sortname: objData.sortName,
         sortorder: objData.sortOrder,
         height: (objData.height != undefined ? objData.height : 230),
-        shrinkToFit: false,
+        shrinkToFit: true,
         autowidth: false,
         viewrecords: true,
         rownumbers: true,
         gridview: true,
-        pagerpos: (objData.pagerpos == false ? false : 'left'),
+        pagerpos: (objData.pagerpos == false ? false : 'center'),
         caption: objData.caption,
         multiselect: objData.multiselect,
-        beforeRequest: function () { loadCombo() },
+        //beforeRequest: function () { loadCombo() },
         gridComplete: function () {
-            loadCombo();
+            //loadCombo();
             if (objData.gridCompleteEvent == true) {
                 gridCompleteEvent(objData.grid);
             }

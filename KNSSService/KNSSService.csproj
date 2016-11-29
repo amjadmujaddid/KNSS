@@ -44,8 +44,10 @@
     <Compile Include="ReportViewerService.cs" />
     <Compile Include="Interface\IReportViewerService.cs" />
     <Compile Include="Contract\IGroupService.cs" />
+    <Compile Include="Contract\IMenuService.cs" />
     <Compile Include="Contract\ResponseBase.cs" />
     <Compile Include="GroupService.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

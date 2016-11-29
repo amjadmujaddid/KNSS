@@ -26,6 +26,13 @@ namespace KNSSService.Contract
         GetDataGroupByIdResponse GetDataGroupById(GetDataGroupByIdRequest request);
 
         /// <summary>
+        /// Get List Data Group By Filter
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetDataGroupByFilterResponse GetDataGroupByFilter(GetDataGroupByFilterRequest request);
+
+        /// <summary>
         /// Insert Data Group
         /// </summary>
         /// <param name="request"></param>
@@ -75,6 +82,23 @@ namespace KNSSService.Contract
     public class GetDataGroupByIdResponse : ResponseBase
     {
         public Group Group { get; set; }
+    }
+
+    public class GetDataGroupByFilterRequest
+    {
+        public string groupId { get; set; }
+        public string groupName { get; set; }
+
+    }
+
+    public class GetDataGroupByFilterResponse : ResponseBase
+    {
+        private List<Group> _groupList;
+
+        public List<Group> GroupList
+        {
+            get { return _groupList ?? (_groupList = new List<Group>()); }
+        }
     }
 
     public class InsertDataGroupRequest

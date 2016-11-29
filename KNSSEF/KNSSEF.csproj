@@ -57,6 +57,8 @@
     <Compile Include="DAL\Interface\IDALRepository.cs" />
     <Compile Include="DAL\Interface\IReportViewerRepository.cs" />
     <Compile Include="DAL\Interface\IGroupRepository.cs" />
+    <Compile Include="DAL\Interface\IMenuRepository.cs" />
+    <Compile Include="DAL\MenuRepository.cs" />
     <Compile Include="KNSSContext.cs" />
     <Compile Include="KNSSModel.Designer.cs">
       <AutoGen>True</AutoGen>

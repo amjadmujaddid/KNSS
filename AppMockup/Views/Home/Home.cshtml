@@ -4,3 +4,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        //promptEmployee | filter form
+        $("#btnSearch").click(function () {
+            loadPrompt({
+                type: "promptResearch",
+                url: "/Home/GetAllData",
+                tagId: 'ProductName',
+                //tagName: obj + 'txtEmpName',
+                userdata: {
+                    fieldId: 'GroupId',
+                    fieldName: 'GroupName',
+                }
+            });
+        });
+    });
+</script>*@
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <div class="box-header">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="btn-group">
+                                <button id="btnAdd" class="btn btn-default btn-md"> Add</button>
+                                <button id="btnDelete" class="btn btn-default btn-md">Delete</button>
+                                <button id="btnUpdate" class="btn btn-default btn-md">Update</button>
+                                <button id="btnReturn" class="btn btn-default btn-md">Return</button>
+                                <button id="btnExcel" class="btn btn-default btn-md">Export to Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-5 pull-right">
+                                <div class="input-group">
+                                    <input type="search" placeholder="Search" id="txtSearchGroup" class="form-control filterItem" />
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn" id="btnSearch"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table table-bordered table-fill" id="layoutGrdProduct"></div>
+                <div class="table table-bordered table-fill" id="layoutGrdProductPgr"></div>
+            </div>
+        </div>
+    </div>
+</section>
