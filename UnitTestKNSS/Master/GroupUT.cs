@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KNSSService.Contract;
 using KNSSService;
 using KNSSEF.Model;
+using KNSSUtility;
+using System.Collections.Generic;
+
 
 namespace UnitTestKNSS.Master
 {
@@ -89,7 +92,14 @@ namespace UnitTestKNSS.Master
         public void GetAllDataGroup()
         {
             GetAllDataGroupResponse response = _groupService.GetAllDataGroup();
-
+            //var x = response.GroupList;
+            //var zxc = new List<Dictionary<string, string>>();
+            //foreach (var item in x)
+            //{
+            //    var tmp = new Dictionary<string, string>();
+            //    tmp.Add(item.GetType().GetProperty(item.GroupId).ToString(), item.GroupId);
+            //}
+            var export = ExportDataHelper.ExportToExcel<Group>("Test", "Sheet1", response.GroupList);
             Assert.IsTrue(response.Messages.Count == 0, "Failed get all data");
         }
 
@@ -104,7 +114,7 @@ namespace UnitTestKNSS.Master
             if (getResponse.Messages.Count != 0)
             {
                 throw new Exception("Delete failed!");
-            }
+            } 
             else
             {
                 DeleteDataGroupRequest request = new DeleteDataGroupRequest();

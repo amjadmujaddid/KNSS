@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Web;
+using System.Web.Hosting;
 
 public class Conf
 {
@@ -23,7 +24,7 @@ public class Conf
     {
         get
         {
-            return HttpContext.Current.Server.MapPath("~/Assets/img/");
+            return HttpContext.Current.Server.MapPath("~/Content/template/");
         }
     }
 
@@ -31,15 +32,15 @@ public class Conf
     {
         get
         {
-            return HttpContext.Current.Server.MapPath("~/assets/img/employee/");
+            return HttpContext.Current.Server.MapPath("~/Content/template/employee/");
         }
     }
 
     public static string DocumentFolder
     {
         get
-        {
-            return HttpContext.Current.Server.MapPath("~/assets/img/document/");
+        {            
+            return HostingEnvironment.MapPath("~/Content/template/document/");
         }
     }
 
