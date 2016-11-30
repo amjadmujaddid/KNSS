@@ -87,13 +87,14 @@
             break;
         case "promptResearch":
             scolNames = ['ID', 'Group Name'];
-            scolModel = [{ name: 'GroupId', width: '150', key:true, hidden:false }, { name: 'GroupName', width: '150' }];
+            scolModel = [{ name: 'GroupId', index: 'GroupId', width: '150', hidden: false }, { name: 'GroupName', index: 'GroupName', width: '150' }];
             titlePrompt = "Percobaan List";
             sMultiselect = false;
             sSortName = "GroupId";
             break;
     }
 
+    /*
     loadGrid({
         grid: "grdPrompt",
         url: objData.url,
@@ -105,6 +106,23 @@
         multiselect: sMultiselect,
         width: 555,
     });
+    */
+    var result = {};
+    $('#layoutGrdPrompt').jqGrid({
+        url: objData.url,
+        datatype: "json",
+        contentType: "application/json; charset-utf-8",
+        mtype: 'POST',
+        colNames: scolNames,
+        colModel: scolModel,
+        rowNum: 10,
+        multiselect: sMultiselect,
+        width: 555,
+        ondblClickRow: function (id) {
+            var ret = $(this).jqGrid('getRowData', id);
+            result = ret;
+        },
+    });
 
     $('#divTitlePrompt').html(titlePrompt);
     $('#lblStatusPrompt').html("");
@@ -115,7 +133,7 @@
         $("#txtPromptId").val(objData.tagId);
         $("#txtPromptName").val(objData.tagName);
 
-        $("#grdPrompt").dblclick(function () { grdPromptClickDefault(objData.userdata) });
+        $("#layoutGrdPrompt").dblclick(function () { grdPromptClickDefault(objData.userdata, result) });
         $("#btnInsertPrompt").click(function () {
             grdPromptClickDefault(objData.userdata);
         });
@@ -126,8 +144,30 @@
     }
 }
 
+function validateGrid(grdId, grdName, lblId) {
+    
+    hiddenError();
+    var sValid = "true";
+
+    if (lblId == undefined) {
+        lblId = "lblStatus";
+    }
+
+    //if ($('#' + grdId).jqGrid('getGridParam', 'selrow') == null) {
+    //    //var html = "<%=Func.GetHeaderMessage("error")%>";
+    //    var html = "No Data selected.";
+    //    alert(html);
+    //    //html += createError("<%=Lang.GetMessage[11]%>", grdName);
+    //    //$("#" + lblId).html(html);
+    //    sValid = "false";
+    //    $("html, body").animate({ scrollTop: 0 }, "slow");
+    //}
+
+    return sValid;
+}
+
 function grdPromptClickDefault() {
-    if (validateGrid("grdPrompt", $("#divTitlePrompt").html(), "lblStatusPrompt") == "true") {
+    if (validateGrid("layoutGrdPrompt", $("#divTitlePrompt").html(), "lblStatusPrompt") == "true") {
         $("#" + $("#txtPromptHidden").val()).val(ret.fieldHidden);
         $("#" + $("#txtPromptId").val()).val(ret.id);
         $("#" + $("#txtPromptName").val()).val(ret.name);
@@ -145,12 +185,13 @@ function grdPromptClickDefault() {
     }
 }
 
-function grdPromptClickDefault(userdata) {
-    if (validateGrid("grdPrompt", $("#divTitlePrompt").html(), "lblStatusPrompt") == "true") {
-        ret = $("#grdPrompt").jqGrid('getRowData', $('#grdPrompt').jqGrid('getGridParam', 'selrow'));
-        $("#" + $("#txtPromptHidden").val()).val(ret[userdata.fieldHidden]);
-        $("#" + $("#txtPromptId").val()).val(ret[userdata.fieldId]);
-        $("#" + $("#txtPromptName").val()).val(ret[userdata.fieldName]);
+function grdPromptClickDefault(userdata, res) {
+    if (validateGrid("layoutGrdPrompt", $("#divTitlePrompt").html(), "lblStatusPrompt") == "true") {
+        //ret = $("#layoutGrdPrompt").jqGrid('getRowData', $('#layoutGrdPrompt').jqGrid('getGridParam', 'selrow'));
+        //alert($("#txtPromptName").val());
+        if ($("#txtPromptHidden").val() != "") $("#" + $("#txtPromptHidden").val()).val(res[userdata.fieldHidden]);
+        $("#" + $("#txtPromptId").val()).val(res[userdata.fieldId]);
+        $("#" + $("#txtPromptName").val()).val(res[userdata.fieldName]);
         $('#dlgPrompt').modal('hide');
     }
 

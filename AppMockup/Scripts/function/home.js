@@ -1,48 +1,48 @@
 ﻿$(function () {
-    loadGrid({
-        grid: "grdProduct",
-        url: "/Home/GetAllData/",
-        colNames: ["ID", "Group Name"],
-        colModel: [
-            {
-                label: 'GroupId',
-                name: 'GroupId',
-                width: 20,
-                key: true,
-                hidden: false
-            },
-            {
-                label: 'GroupName',
-                name: 'GroupName',
-                width: 20,
-                key: true,
-                key: false
-            }
-        ],
-        toolbar: [true, "top"],
-        width: 1100,
-        height: "auto",
-        search: true,
-        sortName: 'GroupId',
-        sortOrder: 'desc'
-    });
-    hideLoading();
+    //loadGrid({
+    //    grid: "grdProduct",
+    //    url: "/Home/GetAllData/",
+    //    colNames: ["ID", "Group Name"],
+    //    colModel: [
+    //        {
+    //            label: 'GroupId',
+    //            name: 'GroupId',
+    //            width: 20,
+    //            key: true,
+    //            hidden: false
+    //        },
+    //        {
+    //            label: 'GroupName',
+    //            name: 'GroupName',
+    //            width: 20,
+    //            key: true,
+    //            key: false
+    //        }
+    //    ],
+    //    toolbar: [true, "top"],
+    //    width: 1100,
+    //    height: "auto",
+    //    search: true,
+    //    sortName: 'GroupId',
+    //    sortOrder: 'desc'
+    //});
+    //hideLoading();
 
-    $("#btnSearch").click(function () {
+    //$("#btnSearch").click(function () {
 
-        //if ($("#" + obj + "dtpMonth").val() != "") {
-        //    joinDate = setMonthYear($("#" + obj + "dtpMonth").val());
-        //}
-        //var text = $("#txtSearchGroup").val();
-        refreshGrid({
-            grid: "grdProduct",
-            url: "/Home/GetFilteredData/",
-            param: "text" + ($("#txtSearchGroup").$()),
-            //postData: {
-            //    text: $("#txtSearchGroup").val()
-        });
+    //    //if ($("#" + obj + "dtpMonth").val() != "") {
+    //    //    joinDate = setMonthYear($("#" + obj + "dtpMonth").val());
+    //    //}
+    //    //var text = $("#txtSearchGroup").val();
+    //    //refreshGrid({
+    //    //    grid: "grdProduct",
+    //    //    url: "/Home/GetFilteredData/",
+    //    //    param: "text" + ($("#txtSearchGroup").$()),
+    //    //    //postData: {
+    //    //    //    text: $("#txtSearchGroup").val()
+    //    //});
 
-        });
+    //    });
     //$.ajax({
     //    type: "POST",
     //    url: "/Home/GetFilteredData",
@@ -60,10 +60,10 @@
 
 $("#grdProduct_rn").html("No.");
 
-function AddAutomaticCalculation() {
+//function AddAutomaticCalculation() {
 
-    $('#modalAddAutomaticCalculation').load("/AutomaticCalculation/AddAutomaticCalculation").modal('show');
-}
+//    $('#modalAddAutomaticCalculation').load("/AutomaticCalculation/AddAutomaticCalculation").modal('show');
+//}
 
 
 

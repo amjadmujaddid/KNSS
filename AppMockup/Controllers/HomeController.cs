@@ -23,6 +23,7 @@ namespace AppMockup.Controllers
             return View();
         }
 
+        /*
         public JsonResult GetAllData()
         {
             List<Group> listGroup = new List<Group>();
@@ -30,6 +31,33 @@ namespace AppMockup.Controllers
             listGroup.AddRange(response.GroupList);
 
             return Json(listGroup.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        */
+
+        public JsonResult GetAllData()
+        {
+            //EmployeeEntities edb = new EmployeeEntities();
+            // UsersContext u = new UsersContext();  
+            List<Group> listGroup = new List<Group>();
+            GetAllDataGroupResponse response = _groupService.GetAllDataGroup();
+            listGroup.AddRange(response.GroupList);
+            
+            var jsonData = new
+            {
+                total = 1,
+                page = 1,
+                records = listGroup.Count,
+                rows = (
+                  from list in listGroup
+                  select new
+                  {
+                      id = list.GroupId,
+                      cell = new string[] {
+                        list.GroupId.ToString(), list.GroupName
+                    }
+                  }).ToArray()
+            };
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
 

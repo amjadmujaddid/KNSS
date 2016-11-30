@@ -33,30 +33,7 @@
     <script src="~/Scripts/function/basicSalaryPromotionIncrement.js"></script>
     <script src="~/Scripts/function/home.js"></script>
     
-    <script type="text/javascript">
-        $(document).ready(function () {
-            function validateGrid(grdId, grdName, lblId) {
-                hiddenError();
-                var sValid = "true";
-
-                if (lblId == undefined) {
-                    lblId = "lblStatus";
-                }
-
-                if ($('#' + grdId).jqGrid('getGridParam', 'selrow') == null) {
-                    //var html = "<%=Func.GetHeaderMessage("error")%>";
-                    var html = "No Data selected.";
-                    alert(html);
-                    //html += createError("<%=Lang.GetMessage[11]%>", grdName);
-                    //$("#" + lblId).html(html);
-                    sValid = "false";
-                    $("html, body").animate({ scrollTop: 0 }, "slow");
-                }
-
-                return sValid;
-            }
-        });
-    </script>
+    
 </head>
 <body class="skin-blue sidebar-mini">
     <div class="wrapper">
@@ -153,7 +130,9 @@
                         <input type="hidden" id="txtPromptName" />
                         <div id="lblStatusPrompt"></div>
                         <div class="box-body table-responsive no-padding">
-                            <div id="layoutGrdPrompt"></div>
+                            @*<div id="layoutGrdPrompt"></div>*@
+                            <table id="layoutGrdPrompt"><tr><td></td></tr></table>
+                            <div id="layoutGrdProductPgr"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -231,6 +210,8 @@
             </div>
         </aside>
         <div class="control-sidebar-bg"></div>
+
+
     </div>
 </body>
 </html>

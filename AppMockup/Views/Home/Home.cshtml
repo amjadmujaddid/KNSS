@@ -7,18 +7,23 @@
 @*<script type="text/javascript">
     $(document).ready(function () {
         //promptEmployee | filter form
+        /**/
         $("#btnSearch").click(function () {
             loadPrompt({
                 type: "promptResearch",
                 url: "/Home/GetAllData",
-                tagId: 'ProductName',
-                //tagName: obj + 'txtEmpName',
+                //tagHidden: '', //optional
+                tagId: 'txtSearchGroup',
+                tagName: 'txtSearchGroup2',
                 userdata: {
                     fieldId: 'GroupId',
                     fieldName: 'GroupName',
                 }
             });
         });
+        
+                
+
     });
 </script>*@
 
@@ -41,6 +46,7 @@
                             <div class="col-lg-5 pull-right">
                                 <div class="input-group">
                                     <input type="search" placeholder="Search" id="txtSearchGroup" class="form-control filterItem" />
+                                    <input type="text" placeholder="Search" id="txtSearchGroup2" class="form-control filterItem" />
                                     <span class="input-group-btn">
                                         <button type="submit" class="btn" id="btnSearch"><i class="fa fa-search"></i></button>
                                     </span>
@@ -49,8 +55,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="table table-bordered table-fill" id="layoutGrdProduct"></div>
-                <div class="table table-bordered table-fill" id="layoutGrdProductPgr"></div>
+                @*<div class="table table-bordered table-fill" id="layoutGrdProduct"></div>*@
+                @*<div class="table table-bordered table-fill" id="layoutGrdProductPgr"></div>*@
+                <table id="layoutGrdProduct"><tr><td></td></tr></table>
+                <div id="layoutGrdProductPgr"></div>
             </div>
         </div>
     </div>
