@@ -232,6 +232,7 @@
     <Content Include="Scripts\function\ConfirmationAndCorrectionDetail.js" />
     <Content Include="Scripts\function\ConfirmationUpdate.js" />
     <Content Include="Scripts\function\global\global.js" />
+    <Content Include="Scripts\function\home.js" />
     <Content Include="Scripts\function\promotionincrementbasicsalary.js" />
     <Content Include="Scripts\grid.locale-en.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -245,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApplicationMenuController.cs" />
     <Compile Include="Controllers\AppraisalIncrementController.cs" />
     <Compile Include="Controllers\AssesmentCorrectionController.cs" />
     <Compile Include="Controllers\AutomaticCalculationController.cs" />
@@ -279,6 +281,7 @@
     <Content Include="Views\Shared\_LoginMaster.cshtml" />
     <Content Include="Views\ReportViewer\Index.cshtml" />
     <Content Include="Views\ReportFilter\Index.cshtml" />
+    <Content Include="Views\ApplicationMenu\MainMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
