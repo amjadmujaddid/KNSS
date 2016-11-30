@@ -63,6 +63,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="ExportDataHelper.cs" />
     <Compile Include="Library.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
