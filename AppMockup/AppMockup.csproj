@@ -290,6 +290,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\template\document\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

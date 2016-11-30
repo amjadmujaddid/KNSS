@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,40 @@ namespace KNSSUtility
 {
     public class Library
     {
+        public static string GetColumnExcel(int character)
+        {
+            int div = character;
+            string column = String.Empty;
+            int mod;
+
+            while (div > 0)
+            {
+                mod = (div - 1) % 26;
+                column = Convert.ToChar(65 + mod).ToString() + column;
+                div = (int)((div - mod) / 26);
+            }
+
+            return column;
+        }
+
+        public static List<Dictionary<string, string>> GetFieldAndType(Type myClass)
+        {
+            var result = new List<Dictionary<string, string>>();
+            List<Type> propertyTypeNames = new List<Type>();
+
+            // write property names
+            foreach (PropertyInfo propertyInfo in myClass.GetProperties())
+            {
+                var tmpData = new Dictionary<string, string>();
+                tmpData.Add("fldName", propertyInfo.Name);
+                tmpData.Add("fldType", propertyInfo.PropertyType.ToString());
+                result.Add(tmpData);
+            }
+
+            return result;
+        }
+
+
         #region DBConnection
         public static string ConDb(string con = "")
         {
