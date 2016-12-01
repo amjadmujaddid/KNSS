@@ -16,6 +16,7 @@ namespace AppMockup.Controllers
         #region Class Attribute and Property
 
         private IGroupService _groupService = new GroupService();
+        private IMenuService _menuService = new MenuService();
 
         #endregion
         public ActionResult Home()
@@ -58,6 +59,9 @@ namespace AppMockup.Controllers
 
             return Json(listGroup.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+
+
 
         //[Route("search/{text}")]
         //public JsonResult GetFilteredData(string text)

@@ -18,6 +18,7 @@
                 width: 50
             }
         ],
+      
         loadonce: true,
         rowNum: 10,
         multiselect: true,
@@ -25,7 +26,26 @@
         pager: "#ctrlGrdGroup",
         sortname: 'id',
         sortorder: 'asc',
-        recreateFilter: true
+        // keep checkbox checked when move to other page grid
+        onSelectRow: function (id) {
+            var p = this.p, item = p.data[p._index[id]];
+            if (typeof (item.cb) === 'undefined') {
+                item.cb = true;
+            } else {
+                item.cb = !item.cb;
+            }
+        },
+        loadComplete: function () {
+            var p = this.p, data = p.data, item, index = p._index, rowid;
+            for (rowid in index) {
+                if (index.hasOwnProperty(rowid)) {
+                    item = data[index[rowid]];
+                    if (typeof (item.cb) === 'boolean' && item.cb) {
+                        $(this).jqGrid('setSelection', rowid, false);
+                    }
+                }
+            }
+        }
 
     });
 
@@ -42,6 +62,9 @@
 
     hideLoading();
     bindComboBox();
+
+
+
 
 });
 function filterCombobox() {
@@ -110,3 +133,25 @@ function showProgress() {
         }
     }
 }
+//function bindMenu() {
+//    var listMenu = [];
+//    $.ajax({
+//        url: "getallmenu",
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (data) {
+//            var menuHtml = '';
+//            $("#MainMenu").append(menuHtml);
+//            for (var i = 0; i < data.length; i++) {
+//                listMenu.push(data[i]);
+//                menuHtml = "<li><a  href='" + data[i].Url + "'><span>" + data[i].MenuName + "</span></li>";
+//                $("#MainMenu").append(menuHtml);
+//            }
+//            //  $.each(data, function (key, value{ <- this is wrong
+//            //$.each(data, function () {
+//            //    //$("#MainMenu").append("<li><a rel='external' href='" + data + "'><span>" + data + "</span></li>");
+//            //});
+//        }
+//    });
+    
+//}
