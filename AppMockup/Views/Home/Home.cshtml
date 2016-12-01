@@ -24,7 +24,41 @@
         color: white;
     }
 </style>
-<section class="content">
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            //ajax({
+            //    url: "Home/Upload",
+            //    type:"POST",
+            //    success: function (response) {
+            // alert("Data Uploaded: ");
+            //    }
+            //})
+            var file = $("#file").val();
+
+            //var varPost = {};
+            //varPost.form = $("#file :input").serializeObject();
+
+            //alert(file);
+            $.ajax({
+                type: "POST",
+                url: "upload",
+                data: JSON.stringify({ fileUpload: file }),
+                //data: JSON.stringify(varPost),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    alert("Data Uploaded: ");
+                }
+                //err
+            });
+        });
+
+    });
+</script>
+
+<section class="content" id="form_UploadFile">
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
@@ -32,13 +66,21 @@
                     <div class="col-lg-6">
                         <select class="form-control" id="cboGroup"></select>
                     </div>
+                    <div class="col-lg-6">
+
+                        <input type="file" id="file" name="file">
+                        <button id="btnSubmit" type="submit" class="glyphicon-save-file"></button>
+                    </div>
                 </div>
+
+
+
             </div>
         </div>
     </div>
 </section>
 <section class="content">
-   @*<input type="button" value="Test" onclick="showProgress()" />*@
+    @*<input type="button" value="Test" onclick="showProgress()" />*@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
@@ -71,20 +113,19 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="col-lg-5 pull-right">
-                                <div class="input-group">
-                                    <input type="text" placeholder="Search by Id" id="txtSearchGroup" class="form-control" />
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn" id="btnSearch"><i class="fa fa-search"></i></button>
-                                    </span>
-                                </div>
+
+                            <div class="input-group">
+                                <input type="text" placeholder="Search by Id" id="txtSearchGroup" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn" id="btnSearch"><i class="fa fa-search"></i></button>
+                                </span>
                             </div>
+
                         </div>
                     </div>
+                    <table class="table table-bordered table-fill" id="grdGroup"></table>
+                    <div id="ctrlGrdGroup"></div>
                 </div>
-                <table class="table table-bordered table-fill" id="grdGroup"></table>
-                <div id="ctrlGrdGroup"></div>
             </div>
         </div>
-    </div>
 </section>

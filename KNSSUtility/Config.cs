@@ -16,7 +16,7 @@ public class Conf
     {
         get
         {
-            return HttpContext.Current.Server.MapPath("~/Assets/img/temp/");
+            return HttpContext.Current.Server.MapPath("~/Content/image/temp/");
         }
     }
 

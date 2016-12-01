@@ -5,7 +5,7 @@ using KNSSService;
 using KNSSEF.Model;
 using KNSSUtility;
 using System.Collections.Generic;
-
+using System.Web;
 
 namespace UnitTestKNSS.Master
 {
@@ -92,14 +92,8 @@ namespace UnitTestKNSS.Master
         public void GetAllDataGroup()
         {
             GetAllDataGroupResponse response = _groupService.GetAllDataGroup();
-            //var x = response.GroupList;
-            //var zxc = new List<Dictionary<string, string>>();
-            //foreach (var item in x)
-            //{
-            //    var tmp = new Dictionary<string, string>();
-            //    tmp.Add(item.GetType().GetProperty(item.GroupId).ToString(), item.GroupId);
-            //}
-            var export = ExportDataHelper.ExportToExcel<Group>("Test", "Sheet1", response.GroupList);
+
+            ExportDataHelper.ExportToExcel<Group>("Test.xlsx", "Sheet1", response.GroupList);
             Assert.IsTrue(response.Messages.Count == 0, "Failed get all data");
         }
 
@@ -135,6 +129,7 @@ namespace UnitTestKNSS.Master
             Assert.IsTrue(response.Messages.Count == 0, "Failed get data by Filter");
 
         }
+
         #endregion
     }
 }
