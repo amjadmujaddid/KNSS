@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<AutomaticCalculations>
-  <AutomaticCalculation Id="1" GroupNo="0001" Grade="Junior Operator" WorkUnit="Production Section1, Production Section2" S="10" A="20" B="20" C="40" D="10" Total="100"/>
-  <AutomaticCalculation Id="2" GroupNo="0002" Grade="Senior Operator" WorkUnit="Production Section3, Production Section4" S="20" A="20" B="20" C="20" D="20" Total="100"/>
-  <AutomaticCalculation Id="2" GroupNo="0002" Grade="HR Manager" WorkUnit="Production Section5, Production Section6" S="10" A="70" B="20" C="0" D="0" Total="100"/>
-</AutomaticCalculations>

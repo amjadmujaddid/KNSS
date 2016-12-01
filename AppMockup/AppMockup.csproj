@@ -193,7 +193,6 @@
     <Content Include="Content\jqGrid-master\ui.jqgrid.css" />
     <Content Include="Content\jqGrid-master\ui.jqgrid.min.css" />
     <Content Include="Content\image\image1.jpg" />
-    <Content Include="Content\image\image2.jpg" />
     <Content Include="Content\ui.jqgrid-bootstrap-ui.css" />
     <Content Include="Content\ui.jqgrid-bootstrap.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -310,6 +309,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\image\temp\" />
     <Folder Include="Content\template\document\" />
     <Folder Include="Models\" />
     <Folder Include="Views\AppMenu\" />
