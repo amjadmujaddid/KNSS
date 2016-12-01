@@ -10,13 +10,16 @@ namespace KNSSUtility
 {
     public class ExportDataHelper
     {
+        #region Constructor
         public ExportDataHelper()
         {
             //
             // TODO: Add constructor logic here
             //
         }
+        #endregion
 
+        #region Export to Excel function
         public static Dictionary<string, string> ExportToExcel<T>(string fileName, string worksheetName, string header, List<T> dataFromService, List<string> isCenter = null) where T : class
         {
             Dictionary<string, string> dt = new Dictionary<string, string>();
@@ -143,8 +146,8 @@ namespace KNSSUtility
 
         }
         public static Dictionary<string, string> ExportToExcel<T>(string fileName, string worksheetName, List<T> dataFromService, List<string> isCenter = null) where T : class
-        {            
-            string sourcePath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(@"~/KNSS/AppMockup/Content/template/document/"), fileName);
+        {                        
+            string sourcePath = Conf.DocumentFolder + fileName;
             Dictionary<string, string> dt = new Dictionary<string, string>();            
             string columnName = "", fldName = "", fileExcel = "", startSheet = "", endSheet = "", cell = "";
             int iSheetValue = 0;
@@ -259,6 +262,6 @@ namespace KNSSUtility
             return dt;
 
         }
-
+        #endregion
     }
 }
