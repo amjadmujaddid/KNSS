@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,9 +143,9 @@ namespace KNSSUtility
 
         }
         public static Dictionary<string, string> ExportToExcel<T>(string fileName, string worksheetName, List<T> dataFromService, List<string> isCenter = null) where T : class
-        {
-            Dictionary<string, string> dt = new Dictionary<string, string>();
-            string sourcePath = Conf.DocumentFolder + fileName;
+        {            
+            string sourcePath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(@"~/KNSS/AppMockup/Content/template/document/"), fileName);
+            Dictionary<string, string> dt = new Dictionary<string, string>();            
             string columnName = "", fldName = "", fileExcel = "", startSheet = "", endSheet = "", cell = "";
             int iSheetValue = 0;
             #region temp variable
@@ -251,7 +252,7 @@ namespace KNSSUtility
             sheet.Columns().AdjustToContents();
 
             fileExcel = fileName;
-            workBook.SaveAs(@"C:\Users\Sakura-Hadi\Desktop\tmp20160803\test.xlsx");
+            workBook.SaveAs(sourcePath);
 
             dt.Add("fileExcel", fileExcel);
 
