@@ -3,29 +3,57 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    #divProgress {
+        position: relative;
+        width: 100%;
+        height: 30px;
+        background-color: #ddd;
+    }
 
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        //promptEmployee | filter form
-        /**/
-        $("#btnSearch").click(function () {
-            loadPrompt({
-                type: "promptResearch",
-                url: "/Home/GetAllData",
-                //tagHidden: '', //optional
-                tagId: 'txtSearchGroup',
-                tagName: 'txtSearchGroup2',
-                userdata: {
-                    fieldId: 'GroupId',
-                    fieldName: 'GroupName',
-                }
-            });
-        });
-        
-                
+    #divBar {
+        position: absolute;
+        width: 10%;
+        height: 100%;
+        background-color: #4CAF50;
+    }
 
-    });
-</script>*@
+    #label {
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+</style>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <div class="box-header">
+                    <div class="col-lg-6">
+                        <select class="form-control" id="cboGroup"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+   @*<input type="button" value="Test" onclick="showProgress()" />*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <div class="box-header">
+                    <div id="divProgress">
+                        <div id="divBar">
+                            <div id="label">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <section class="content">
     <div class="row">
@@ -45,20 +73,17 @@
                         <div class="col-lg-6">
                             <div class="col-lg-5 pull-right">
                                 <div class="input-group">
-                                    <input type="search" placeholder="Search" id="txtSearchGroup" class="form-control filterItem" />
-                                    <input type="text" placeholder="Search" id="txtSearchGroup2" class="form-control filterItem" />
+                                    <input type="text" placeholder="Search by Id" id="txtSearchGroup" class="form-control" />
                                     <span class="input-group-btn">
-                                        <button type="submit" class="btn" id="btnSearch"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn" id="btnSearch"><i class="fa fa-search"></i></button>
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @*<div class="table table-bordered table-fill" id="layoutGrdProduct"></div>*@
-                @*<div class="table table-bordered table-fill" id="layoutGrdProductPgr"></div>*@
-                <table id="layoutGrdProduct"><tr><td></td></tr></table>
-                <div id="layoutGrdProductPgr"></div>
+                <table class="table table-bordered table-fill" id="grdGroup"></table>
+                <div id="ctrlGrdGroup"></div>
             </div>
         </div>
     </div>
